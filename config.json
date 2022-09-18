@@ -1,0 +1,9 @@
+{
+  "locale": "de_DE",
+  "refresh_rate": 15,
+  "tickers": ["BTC", "ETH", "SPY"],
+  "ticker_rate": 60,
+  "currency": "USD",
+  "boot_time": 10,
+  "show_moving_average": true
+}
