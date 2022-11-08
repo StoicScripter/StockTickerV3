@@ -74,7 +74,7 @@ def center_image(img):
     #get the positional arguments to place the image at the center
     width, height = img.size
     width = epd.width / 2 - width/2
-    height = epd.width / 2 - height / 2
+    height = epd.width / 2 + height / 2
     return int(width), int(height)
 
 
