@@ -97,9 +97,9 @@ def show_boot_screen(config):
     ip_address = Image.open(os.path.join(picdir, "ip_address.png"))
     image = Image.new('L', (epd.height, epd.width), 255)  # 255: clear the image with white
     draw = ImageDraw.Draw(image)
-    image.paste(ip_address, (100,100))
+    image.paste(ip_address, (100, 100))
     draw = ImageDraw.Draw(image)
-    epd.display(epd.getbuffer(image))
+    epd.display(epd.getbuffer(image), epd.getbuffer(image)) #TODO change this wrong usage of the black and white and yellow image!!
     time.sleep(config["boot_time"])
     pass
 
