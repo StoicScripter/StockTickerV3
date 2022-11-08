@@ -97,7 +97,7 @@ def show_boot_screen(config):
     epd.Clear()
     image = Image.new('L', (epd.height, epd.width), 255)  # 255: clear the image with white
     draw = ImageDraw.Draw(image)
-    image.paste()
+    #image.paste()
     image = Image.open(os.path.join(picdir, "ip_address.png"))
     draw = ImageDraw.Draw(image)
 
