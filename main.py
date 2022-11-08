@@ -97,7 +97,7 @@ def show_boot_screen(config):
     ip_address = Image.open(os.path.join(picdir, "ip_address.png"))
     image = Image.new('L', (epd.height, epd.width), 255)  # 255: clear the image with white
     draw = ImageDraw.Draw(image)
-    image.paste(ip_address)
+    image.paste(ip_address, (100,100))
     draw = ImageDraw.Draw(image)
     epd.display(epd.getbuffer(image))
     time.sleep(config["boot_time"])
