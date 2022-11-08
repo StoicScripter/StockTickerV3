@@ -26,7 +26,8 @@ import yfinance as yf
 
 # paths
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
-
+#display
+epd = epd7in5bc.EPD()
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     # check if an internet connection can be established.
@@ -69,6 +70,14 @@ def display_exception():
     pass
 
 
+def center_image(img):
+    #get the positional arguments to place the image at the center
+    width, height = img.size
+    width = epd.width / 2 - width/2
+    height = epd.width / 2 - height / 2
+    return width, height
+
+
 def make_fig(config):
     # TODO create the sparkline
     # TODO create the graph
@@ -91,13 +100,13 @@ def get_config():
 def show_boot_screen(config):
     # TODO make Codingry boot logo in Yellow and black
     # TODO show the screen only for a set duration
-    epd = epd7in5bc.EPD()
     epd.init()
     epd.Clear()
     ip_address = Image.open(os.path.join(picdir, "ip_address.png"))
+    x,y = center_image(ip_address)
     image = Image.new('L', (epd.height, epd.width), 255)  # 255: clear the image with white
     draw = ImageDraw.Draw(image)
-    image.paste(ip_address, (100, 100))
+    image.paste(ip_address, (x, y))
     draw = ImageDraw.Draw(image)
     epd.display(epd.getbuffer(image), epd.getbuffer(image)) #TODO change this wrong usage of the black and white and yellow image!!
     time.sleep(config["boot_time"])
