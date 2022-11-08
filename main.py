@@ -75,7 +75,7 @@ def center_image(img):
     width, height = img.size
     width = epd.width / 2 - width/2
     height = epd.width / 2 - height / 2
-    return width, height
+    return int(width), int(height)
 
 
 def make_fig(config):
@@ -103,7 +103,7 @@ def show_boot_screen(config):
     epd.init()
     epd.Clear()
     ip_address = Image.open(os.path.join(picdir, "ip_address.png"))
-    x,y = center_image(ip_address)
+    x, y = center_image(ip_address)
     image = Image.new('L', (epd.height, epd.width), 255)  # 255: clear the image with white
     draw = ImageDraw.Draw(image)
     image.paste(ip_address, (x, y))
