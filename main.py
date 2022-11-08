@@ -100,7 +100,7 @@ def show_boot_screen(config):
     #image.paste()
     image = Image.open(os.path.join(picdir, "ip_address.png"))
     draw = ImageDraw.Draw(image)
-
+    epd.display(epd.getbuffer(image))
     pass
 
 
