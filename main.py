@@ -123,7 +123,7 @@ def make_qr_code(address: str, size: int = 150):
     # if that is not possible then TODO return an Error code and display it later
     try:
         img = qrcode.make(address)
-        img.resize(size, size)
+        img = img.resize(size, size)
         # TODO resize the image if the size is given
         img.save(os.path.join(picdir, "ip_address.png"))
     except Exception as e:
