@@ -134,7 +134,7 @@ def main():
     # get the config file
     config = get_config()
     # TODO generate the qr code for the ip
-    make_qr_code(getIpAddress(), 50)
+    make_qr_code(getIpAddress(), 150)
     # TODO show the boot screen
     show_boot_screen(config)
     # TODO periodically update everything
