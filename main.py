@@ -118,7 +118,7 @@ def update_display():
 
 
 # noinspection PyBroadException
-def make_qr_code(address: str, size: int = 150):
+def make_qr_code(address: str, size: int):
     # make a qr code for the ip address of the rpi
     # if that is not possible then TODO return an Error code and display it later
     try:
