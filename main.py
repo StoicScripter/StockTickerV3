@@ -118,11 +118,16 @@ def update_display():
 
 
 # noinspection PyBroadException
-def make_qr_code(address: str):
+def make_qr_code(address: str, size: int = 10):
     # make a qr code for the ip address of the rpi
     # if that is not possible then TODO return an Error code and display it later
     try:
-        img = qrcode.make(address)
+        qr = qrcode.QRCode(
+            box_size=size
+        )
+        img = qr.make(address)
+        print(img.size)
+        # TODO resize the image if the size is given
         img.save(os.path.join(picdir, "ip_address.png"))
     except Exception as e:
         logging.info(str(e))
