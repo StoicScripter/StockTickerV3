@@ -27,7 +27,7 @@ import yfinance as yf
 
 # paths
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
-plotdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
+plotdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'plots')
 
 # display
 epd = epd7in5bc.EPD()
