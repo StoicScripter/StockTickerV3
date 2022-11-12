@@ -205,4 +205,5 @@ def main():
 
 
 if __name__ == '__main__':
+    # start the main loop
     main()
