@@ -139,7 +139,7 @@ def make_fig(ticker_name: str = 'MSFT'):
         )
     )
     # save the image
-    fig.write_image(plotdir, engine="kaleido")
+    fig.write_image(os.path.join(plotdir, 'plot.png'), engine="kaleido")
 
 
 def get_config():
