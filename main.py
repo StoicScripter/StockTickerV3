@@ -152,7 +152,7 @@ def get_config():
 def show_boot_screen(config):
     epd.init()
     epd.Clear()
-    ip_address = Image.open(os.path.join(picdir, "ip_address.png"))
+    ip_address = Image.open(os.path.join(picdir, "plot.png"))
     x, y = center_image(ip_address)
     # 255: clear the image with white
     image = Image.new('L', (epd.height, epd.width), 255)
@@ -184,7 +184,7 @@ def make_qr_code(address: str, size: int):
         img = qrcode.make(address)
         img = img.resize((size, size))
         # TODO resize the image if the size is given
-        img.save(os.path.join(picdir, "ip_address.png"))
+        img.save(os.path.join(picdir, "plot.png"))
     except Exception as e:
         logging.info(str(e))
 
