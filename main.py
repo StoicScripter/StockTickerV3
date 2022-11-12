@@ -66,7 +66,7 @@ def format_numbers(num):
     return '{}{}'.format('{:f}'.format(num).rstrip('0').rstrip('.'), ['', 'K', 'M', 'B', 'T'][magnitude])
 
 
-def get_data(config):
+def plot_ticker(config):
     pass
 
 
@@ -84,9 +84,32 @@ def center_image(img):
     return int(width), int(height)
 
 
-def make_fig(config):
-    # TODO create the sparkline
-    # TODO create the graph
+def make_fig(ticker_name: str):
+    # set the line colors
+    color_hi_fill = 'rgb(204,204,0)'
+    color_hi_line = 'rgb(204,204,0)'
+    color_lo_fill = 'black'
+    color_lo_line = 'black'
+
+    # get the ticker
+    ticker = yf.Ticker(ticker_name)
+    hist = ticker.history(period='7d', interval='5m', prepost=True)
+
+    # create the graph
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+    fig.add_trace(go.Candlestick(x=hist.index,
+                                 open=hist['Open'],
+                                 high=hist['High'],
+                                 low=hist['Low'],
+                                 close=hist['Close'],
+                                 ))
+
+    fig.update_xaxes(rangebreaks=[
+        dict(bounds=["sat", "mon"]),  # hide weekends, eg. hide sat to before mon
+        # dict(bounds=[16, 9.5], pattern="hour"),  # hide hours outside of 9.30am-4pm
+        # dict(values=["2021-12-25","2022-01-01"]) #hide Xmas and New Year
+    ])
+
     # TODO set the graphs size
     # TODO set the font size
     # TODO have a gallery mode
@@ -144,6 +167,9 @@ def main():
     # TODO show the boot screen
     show_boot_screen(config)
     # TODO periodically update everything
+    while not loggedException:
+        update_display()
+        time.sleep(config["refresh_rate"])
     pass
 
 

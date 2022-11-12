@@ -3,6 +3,7 @@
   "refresh_rate": 15,
   "tickers": ["MSFT", "ETH", "SPY"],
   "ticker_rate": 60,
+  "data_interval": "7d",
   "currency": "USD",
   "boot_time": 10,
   "show_moving_average": true
