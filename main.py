@@ -11,7 +11,8 @@ from PIL import Image, ImageOps
 from PIL import ImageFont
 from PIL import ImageDraw
 # plotting
-# TODO import raspberry pi components
+
+
 # import waveshare components
 from waveshare_epd import epd7in5bc
 
@@ -26,8 +27,13 @@ import yfinance as yf
 
 # paths
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
-#display
+
+# display
 epd = epd7in5bc.EPD()
+
+# flags
+loggedException = False
+
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     # check if an internet connection can be established.
