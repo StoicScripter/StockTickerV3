@@ -27,6 +27,7 @@ import yfinance as yf
 
 # paths
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
+plotdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
 
 # display
 epd = epd7in5bc.EPD()
@@ -77,14 +78,14 @@ def display_exception():
 
 
 def center_image(img):
-    #get the positional arguments to place the image at the center
+    # get the positional arguments to place the image at the center
     width, height = img.size
-    width = epd.width / 2 - width/2
+    width = epd.width / 2 - width / 2
     height = epd.height / 2 - height / 2
     return int(width), int(height)
 
 
-def make_fig(ticker_name: str):
+def make_fig(ticker_name: str = 'MSFT'):
     # set the line colors
     color_hi_fill = 'rgb(204,204,0)'
     color_hi_line = 'rgb(204,204,0)'
@@ -110,13 +111,35 @@ def make_fig(ticker_name: str):
         # dict(values=["2021-12-25","2022-01-01"]) #hide Xmas and New Year
     ])
 
-    # TODO set the graphs size
-    # TODO set the font size
-    # TODO have a gallery mode
-    # TODO have a 2 split mode
-    # TODO have a 4 split mode
-    # TODO display messages in a window
-    pass
+    fig.update_xaxes(linecolor='rgb(0,0,0)', linewidth=1)
+    fig.update_yaxes(linecolor='rgb(0,0,0)', linewidth=1)
+
+    fig.update_traces(
+        increasing_line=dict(
+            color=color_hi_line,
+            width=1
+        ),
+        decreasing_line=dict(
+            color=color_lo_line,
+            width=1
+        ),
+        increasing_fillcolor=color_hi_fill,
+        decreasing_fillcolor=color_lo_fill
+    )
+
+    fig.update_layout(
+        margin=dict(l=5, r=5, t=5, b=5),
+        autosize=False,
+        width=500,
+        height=300,
+        xaxis_rangeslider_visible=False, font=dict(
+            family="Courier New, monospace",
+            size=12,
+            color="rgb(0,0,0)"
+        )
+    )
+    # save the image
+    fig.write_image(plotdir, engine="kaleido")
 
 
 def get_config():
@@ -127,22 +150,29 @@ def get_config():
 
 
 def show_boot_screen(config):
-    # TODO make Codingry boot logo in Yellow and black
-    # TODO show the screen only for a set duration
     epd.init()
     epd.Clear()
     ip_address = Image.open(os.path.join(picdir, "ip_address.png"))
     x, y = center_image(ip_address)
-    image = Image.new('L', (epd.height, epd.width), 255)  # 255: clear the image with white
-    draw = ImageDraw.Draw(image)
+    # 255: clear the image with white
+    image = Image.new('L', (epd.height, epd.width), 255)
+    # TODO make Codingry boot logo
+    # draw = ImageDraw.Draw(image)
     image.paste(ip_address, (y, x))
-    draw = ImageDraw.Draw(image)
-    epd.display(epd.getbuffer(image), epd.getbuffer(image)) #TODO change this wrong usage of the black and white and yellow image!!
+    epd.display(epd.getbuffer(image),
+                epd.getbuffer(image))  # TODO change this wrong usage of the black and white and yellow image!!!
     time.sleep(config["boot_time"])
     pass
 
 
 def update_display():
+    epd.Clear()
+    # draw the plot
+    plot = Image.open(os.path.join(plotdir, "plot.png"))
+    x, y = center_image(plot)
+    image = Image.new('L', (epd.height, epd.width), 255)  # 255: clear the image with white
+    image.paste(plot, (y, x))
+    epd.display(epd.getbuffer(image), epd.getbuffer(image))
     pass
 
 
@@ -168,6 +198,7 @@ def main():
     show_boot_screen(config)
     # TODO periodically update everything
     while not loggedException:
+        make_fig('MSFT')
         update_display()
         time.sleep(config["refresh_rate"])
     pass
