@@ -86,6 +86,7 @@ def center_image(img):
 
 
 def make_fig(ticker_name: str = 'MSFT'):
+    #TODO switch from Plotly to Matplotlib due to shitty kaleido support
     # set the line colors
     color_hi_fill = 'rgb(204,204,0)'
     color_hi_line = 'rgb(204,204,0)'
