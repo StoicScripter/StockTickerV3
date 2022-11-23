@@ -6,23 +6,18 @@ import qrcode
 import math
 import time
 
-# import PIL
+# imports
 from PIL import Image, ImageOps
 from PIL import ImageFont
 from PIL import ImageDraw
-# plotting
-
-
-# import waveshare components
 from waveshare_epd import epd7in5bc
-
 import json
-# formatting
 import locale
-# util
-import plotly.io as pio
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+import matplotlib as mpl
+
+mpl.use("Agg")
+import matplotlib.pyplot as plt
+import pandas as pd
 import yfinance as yf
 
 # paths
@@ -86,7 +81,8 @@ def center_image(img):
 
 
 def make_fig(ticker_name: str = 'MSFT'):
-    #TODO switch from Plotly to Matplotlib due to shitty kaleido support
+    # TODO switch from Plotly to Matplotlib due to shitty kaleido support
+
     # set the line colors
     color_hi_fill = 'rgb(204,204,0)'
     color_hi_line = 'rgb(204,204,0)'
@@ -97,50 +93,10 @@ def make_fig(ticker_name: str = 'MSFT'):
     ticker = yf.Ticker(ticker_name)
     hist = ticker.history(period='7d', interval='5m', prepost=True)
 
-    # create the graph
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
-    fig.add_trace(go.Candlestick(x=hist.index,
-                                 open=hist['Open'],
-                                 high=hist['High'],
-                                 low=hist['Low'],
-                                 close=hist['Close'],
-                                 ))
+    # TODO create the graph
 
-    fig.update_xaxes(rangebreaks=[
-        dict(bounds=["sat", "mon"]),  # hide weekends, eg. hide sat to before mon
-        # dict(bounds=[16, 9.5], pattern="hour"),  # hide hours outside of 9.30am-4pm
-        # dict(values=["2021-12-25","2022-01-01"]) #hide Xmas and New Year
-    ])
-
-    fig.update_xaxes(linecolor='rgb(0,0,0)', linewidth=1)
-    fig.update_yaxes(linecolor='rgb(0,0,0)', linewidth=1)
-
-    fig.update_traces(
-        increasing_line=dict(
-            color=color_hi_line,
-            width=1
-        ),
-        decreasing_line=dict(
-            color=color_lo_line,
-            width=1
-        ),
-        increasing_fillcolor=color_hi_fill,
-        decreasing_fillcolor=color_lo_fill
-    )
-
-    fig.update_layout(
-        margin=dict(l=5, r=5, t=5, b=5),
-        autosize=False,
-        width=500,
-        height=300,
-        xaxis_rangeslider_visible=False, font=dict(
-            family="Courier New, monospace",
-            size=12,
-            color="rgb(0,0,0)"
-        )
-    )
-    # save the image
-    fig.write_image(os.path.join(plotdir, 'plot.png'), engine="kaleido")
+    # TODO resize the graph
+    # TODO save the image as plot.png
 
 
 def get_config():
@@ -184,6 +140,7 @@ def make_qr_code(address: str, size: int):
     try:
         img = qrcode.make(address)
         img = img.resize((size, size))
+        # TODO resizing not working for some reason
         # TODO resize the image if the size is given
         img.save(os.path.join(picdir, "plot.png"))
     except Exception as e:
