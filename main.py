@@ -83,12 +83,6 @@ def center_image(img):
 def make_fig(ticker_name: str = 'MSFT'):
     # TODO switch from Plotly to Matplotlib due to shitty kaleido support
 
-    # set the line colors
-    color_hi_fill = 'rgb(204,204,0)'
-    color_hi_line = 'rgb(204,204,0)'
-    color_lo_fill = 'black'
-    color_lo_line = 'black'
-
     # get the ticker
     ticker = yf.Ticker(ticker_name)
     hist = ticker.history(period='7d', interval='5m', prepost=True)
@@ -140,7 +134,6 @@ def make_qr_code(address: str, size: int):
     try:
         img = qrcode.make(address)
         img = img.resize((size, size))
-        # TODO resizing not working for some reason
         # TODO resize the image if the size is given
         img.save(os.path.join(picdir, "plot.png"))
     except Exception as e:
