@@ -24,7 +24,7 @@ picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
 plotdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'plots')
 fontdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts')
 josefin_regular = ImageFont.truetype(os.path.join(fontdir, 'JosefinSans-Regular.ttf'), 30)
-josefin_bold = ImageFont.truetype(os.path.join(fontdir, 'JosefinSans-Bold.ttf'))
+josefin_bold = ImageFont.truetype(os.path.join(fontdir, 'JosefinSans-Bold.ttf'), 30)
 
 # display
 epd = epd7in5bc.EPD()
@@ -110,7 +110,8 @@ def show_boot_screen(config):
     # 255: clear the image with white
     image = Image.new('L', (epd.height, epd.width), 255)
     # TODO make Codingry boot logo
-    # draw = ImageDraw.Draw(image)
+    draw = ImageDraw.Draw(image)
+    draw.text((15, 100), 'Scan the QR code to open the settings page', font=josefin_bold, fill=0)
     image.paste(ip_address, (y, x))
     epd.display(epd.getbuffer(image),
                 epd.getbuffer(image))  # TODO change this wrong usage of the black and white and yellow image!!!
