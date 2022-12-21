@@ -14,15 +14,17 @@ from waveshare_epd import epd7in5bc
 import json
 import locale
 import matplotlib as mpl
-
-mpl.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 import yfinance as yf
+mpl.use("Agg")
 
 # paths
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
 plotdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'plots')
+fontdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts')
+josefin_regular = ImageFont.truetype(os.path.join(fontdir, 'JosefinSans-Regular.ttf'), 30)
+josefin_bold = ImageFont.truetype(os.path.join(fontdir, 'JosefinSans-Bold.ttf'))
 
 # display
 epd = epd7in5bc.EPD()
